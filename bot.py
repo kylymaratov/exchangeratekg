@@ -31,5 +31,5 @@ def send_welcome(message):
 
 
 if __name__ == "__main__":
-    print("Valuta bot started...")
+    print("Valuta telegram bot started...")
     bot.infinity_polling()
