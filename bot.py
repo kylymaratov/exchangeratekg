@@ -23,7 +23,7 @@ def send_welcome(message):
     elif message.text == "/mossovet":
         photos = parser.parse_mossovet_photos()
         if len(photos) == 0:
-            return
+            return bot.reply(str("No data, please try later"))
         for photo in photos:
             bot.send_photo(message.chat.id, photo)
     else:
