@@ -8,4 +8,5 @@ Jinja2==3.1.2
 MarkupSafe==2.1.2
 pycodestyle==2.10.0
 pyTelegramBotAPI==4.10.0
+python-dotenv==1.0.0
 Werkzeug==2.2.3
