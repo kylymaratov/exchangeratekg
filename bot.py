@@ -2,11 +2,15 @@ import telebot
 import time
 import logging
 import flask
-import config
+import init
 import templates
 import parser
+import os
+from dotenv import load_dotenv
 
-bot = telebot.TeleBot(config.TOKEN)
+load_dotenv()
+
+bot = telebot.TeleBot(init.TOKEN)
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 app = flask.Flask(__name__)
@@ -41,8 +45,11 @@ def send_welcome(message):
 
 
 if __name__ == "__main__":
-    if config.WEBHOOK_MODE:
+    if bool(os.getenv("WEBHOOK_MODE")):
         WEBHOOK_URL_PATH = "/valutakg/%s/" % (bot.token)
+        WEBHOOK_HOST = os.getenv("WEBHOOK_HOST")
+        WEBHOOK_LISTEN = os.getenv("WEBHOOK_LISTEN")
+        WEBHOOK_PORT = os.getenv("WEBHOOK_PORT")
 
         @app.route(WEBHOOK_URL_PATH, methods=['POST'])
         def webhook():
@@ -58,9 +65,10 @@ if __name__ == "__main__":
         time.sleep(0.1)
 
         bot.set_webhook(
-            (str(config.WEBHOOK_HOST) + str(WEBHOOK_URL_PATH)), max_connections=1)
-        app.run(host=config.WEBHOOK_LISTEN,
-                port=config.WEBHOOK_PORT
+            (str(WEBHOOK_HOST) + str(WEBHOOK_URL_PATH)), max_connections=1)
+        app.run(WEBHOOK_LISTEN,
+                int(WEBHOOK_PORT)
                 )
     else:
+        bot.remove_webhook()
         bot.infinity_polling()

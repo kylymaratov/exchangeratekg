@@ -1,10 +1,7 @@
 import sys
 
 TOKEN = None
-WEBHOOK_MODE = False
-WEBHOOK_HOST = ''
-WEBHOOK_PORT = 8001
-WEBHOOK_LISTEN = "localhost"
+
 
 try:
     r_file = open("token.txt", "r")
