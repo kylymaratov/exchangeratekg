@@ -42,7 +42,7 @@ def send_welcome(message):
 
 if __name__ == "__main__":
     if config.WEBHOOK_MODE:
-        WEBHOOK_URL_PATH = "/%s/" % (bot.token)
+        WEBHOOK_URL_PATH = "/bot/%s/" % (bot.token)
 
         @app.route(WEBHOOK_URL_PATH, methods=['POST'])
         def webhook():

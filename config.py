@@ -1,7 +1,7 @@
 import sys
 
 TOKEN = None
-WEBHOOK_MODE = True
+WEBHOOK_MODE = False
 WEBHOOK_HOST = ''
 WEBHOOK_PORT = 8001
 WEBHOOK_LISTEN = "localhost"
