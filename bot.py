@@ -21,7 +21,7 @@ logging.basicConfig(filename="logger.log", level=logging.ERROR)
 
 
 @bot.message_handler(commands=["start", "help", "banks", "nbkr", "mossovet"])
-def send_welcome(message):
+def commands_handler(message):
     if message.chat.type != "private":
         return
 
@@ -47,6 +47,13 @@ def send_welcome(message):
             bot.send_photo(message.chat.id, photo)
     else:
         bot.reply_to(message, templates.UKNOWN_COMMAND)
+
+
+@bot.message_handler(content_types=['text'])
+def text_handler(message):
+    if message.chat.type != "private":
+        return
+    bot.reply_to(message, templates.ONLY_COMMANDS)
 
 
 if __name__ == "__main__":
