@@ -50,6 +50,10 @@ def parse_banks_data(formated=False):
 
     for i in range(len(banks)):
         bank = soup.find("tr", {"id": f"js-member-{banks[i]}"})
+
+        if not bank:
+            continue
+
         bank_title = bank.find("a").get_text()
         courses = []
         try:

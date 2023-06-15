@@ -31,17 +31,20 @@ def send_welcome(message):
     elif message.text == "/help":
         return bot.send_message(message.chat.id, templates.HELP)
     elif message.text == "/banks":
-        return bot.send_message(message.chat.id, parser.parse_banks_data(formated=True), parse_mode="Markdown")
+        banks_result = parser.parse_banks_data(formated=True)
+
+        return bot.send_message(message.chat.id, str(banks_result), parse_mode="Markdown")
     elif message.text == "/nbkr":
-        return bot.send_message(message.chat.id, parser.parse_nbkr_data(formated=True), parse_mode="Markdown")
+        nbkr_result = parser.parse_nbkr_data(formated=True)
+        return bot.send_message(message.chat.id, str(nbkr_result), parse_mode="Markdown")
     elif message.text == "/mossovet":
         photos = parser.parse_mossovet_photos()
         if len(photos) == 0:
-            return bot.reply(str("No data, please try later"))
+            return bot.reply_to(message, "Данных нету, попробуйте позже!")
         for photo in photos:
             bot.send_photo(message.chat.id, photo)
     else:
-        bot.reply_to(templates.UKNOWN_COMMAND)
+        bot.reply_to(message, templates.UKNOWN_COMMAND)
 
 
 if __name__ == "__main__":
