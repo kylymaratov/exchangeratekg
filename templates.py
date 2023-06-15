@@ -1,4 +1,5 @@
 
-START = "Hello, i'm simple bot for get current course valute in Kyrgyzstan. Just type /help"
-HELP = f"Commnads:\n/banks - Get current course from banks\n/nkbr - Get official current course\n/mossovet - Get images directly from Mossovet"
-UKNOWN_COMMAND = "I could not recognize the command, select /help from the list"
+START = "Привет! Я бот созданый чтобы быстро и легко получить официальный курс по Кыргызской республике. Если что-то непонятно просто набери команду /help."
+HELP = f"Commnads:\n/banks - Получить актуальный курс от банков\n/nbkr - Получить официальный курс нац.банка\n/mossovet - Получить фотографии кусра с моссовет."
+UKNOWN_COMMAND = "Я не смог распознать вашу команду, наберите /help и выберите команду."
+NO_DATA = "Данных нету, попробуйте позже! Обычно фотографии появляются утром в районе 9 часов."

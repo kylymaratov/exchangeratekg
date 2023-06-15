@@ -6,7 +6,7 @@ share_country_flags = ["USD 🇺🇸", "EUR 🇪🇺",
 
 
 def format_nbkr_data(data):
-    result = f"Current official NBRK course\n\n"
+    result = f"Официальный курс нац.банка Кыргызской республики\n\n"
 
     current_course = data[:12]
     middle_course = data[:12 + len(current_course)][-12:]
@@ -14,11 +14,11 @@ def format_nbkr_data(data):
 
     for i in range(3):
         if i == 0:
-            result += f"Current course\n"
+            result += f"Средний курс\n"
         if i == 1:
-            result += f"Middle course\n"
+            result += f"Лучший курс\n"
         if i == 2:
-            result += f"Official course\n"
+            result += f"Официальный курс\n"
 
         for j in range(len(share_country_flags)):
             if i == 0:
@@ -34,7 +34,7 @@ def format_nbkr_data(data):
 
 
 def format_banks_data(data):
-    result = f"Current course from banks of KG\nPurchase | Sale\n\n"
+    result = f"Текущий курс в банках Кырзыской Республики\nПокупка | Продажа\n\n"
 
     for item in data:
         result += f"{item['title']}\n"
@@ -42,5 +42,5 @@ def format_banks_data(data):
         for i in range(len(country_flags)):
             result += f"*{country_flags[i]}: {item['courses'][i]['buy']} | {item['courses'][i]['sell']}*\n"
 
-        result += f"_Time_: {item['time']}\n\n"
+        result += f"_Время_: {item['time']}\n\n"
     return result

@@ -36,11 +36,13 @@ def send_welcome(message):
         return bot.send_message(message.chat.id, str(banks_result), parse_mode="Markdown")
     elif message.text == "/nbkr":
         nbkr_result = parser.parse_nbkr_data(formated=True)
+
+        print(nbkr_result)
         return bot.send_message(message.chat.id, str(nbkr_result), parse_mode="Markdown")
     elif message.text == "/mossovet":
         photos = parser.parse_mossovet_photos()
         if len(photos) == 0:
-            return bot.reply_to(message, "Данных нету, попробуйте позже!")
+            return bot.reply_to(message, templates.NO_DATA)
         for photo in photos:
             bot.send_photo(message.chat.id, photo)
     else:
