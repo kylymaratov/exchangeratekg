@@ -67,6 +67,7 @@ def parse_banks_data(formated=False):
 
         result.append({
             "title": bank_title,
+            "id": banks[i],
             "courses": [
                 {
                     "buy": courses[0],

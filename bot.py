@@ -6,6 +6,7 @@ import init
 import templates
 import parser
 import os
+import textwrap
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,7 +34,11 @@ def commands_handler(message):
     elif message.text == "/banks":
         banks_result = parser.parse_banks_data(formated=True)
 
-        return bot.send_message(message.chat.id, str(banks_result), parse_mode="Markdown")
+        try:
+            bot.send_message(message.chat.id, str(
+                banks_result), parse_mode="Markdown")
+        except:
+            return
     elif message.text == "/nbkr":
         nbkr_result = parser.parse_nbkr_data(formated=True)
 
