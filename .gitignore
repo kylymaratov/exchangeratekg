@@ -6,3 +6,4 @@
 token.txt
 logger.log
 .env
+database.db
