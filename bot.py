@@ -6,7 +6,6 @@ import init
 import templates
 import parser
 import os
-import textwrap
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -76,7 +75,7 @@ if __name__ == "__main__":
                 bot.process_new_updates([update])
                 return ''
             else:
-                lask.abort(403)
+                flask.abort(403)
 
         bot.remove_webhook()
         time.sleep(0.1)
