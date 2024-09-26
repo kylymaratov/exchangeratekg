@@ -1,9 +1,2 @@
-.idea
-
-/__pycache__/
-/env/
-
-token.txt
-logger.log
+node_modules
 .env
-database.db
