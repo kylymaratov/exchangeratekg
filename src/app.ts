@@ -5,7 +5,6 @@ import './cron/cron';
 
 import { setServerMiddlewares } from '@/server/server-middlewares';
 import { startServer } from '@/server/server-run';
-import { parseValutaKgWebsite } from './parser';
 
 const app = express();
 

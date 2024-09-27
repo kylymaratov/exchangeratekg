@@ -2,4 +2,4 @@ import moment from 'moment-timezone';
 
 const bishkekTimeZone = 'Asia/Bishkek';
 
-export const getDate = () => moment.tz(bishkekTimeZone).utc().toDate();
+export const getDate = () => moment.tz(bishkekTimeZone);

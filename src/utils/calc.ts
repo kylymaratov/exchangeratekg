@@ -13,14 +13,19 @@ export const calculateUpOrDown = (
       const buy = parseFloat(course[i].courses[j].buy);
       const sell = parseFloat(course[i].courses[j].sell);
 
-      if (!oldBuy || !oldSell || !buy || !sell) continue;
+      const oldTotal = oldBuy + oldSell;
+      const newTotal = buy + sell;
 
-      if (buy > oldBuy && sell > oldSell) {
+      const totalPercentageChange = ((newTotal - oldTotal) / oldTotal) * 100;
+
+      if (newTotal > oldTotal) {
         course[i].courses[j].direction = 'up';
+        course[i].courses[j].procent = `+${totalPercentageChange.toFixed(2)}%`;
       }
 
-      if (oldBuy > buy && oldSell > sell) {
+      if (newTotal < oldTotal) {
         course[i].courses[j].direction = 'down';
+        course[i].courses[j].procent = `-${totalPercentageChange.toFixed(2)}%`;
       }
     }
   }

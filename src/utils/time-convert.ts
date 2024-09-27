@@ -5,10 +5,12 @@ export const convertToUnix = (time: string): number => {
 
   const [hours, minutes] = time.split(':').map(Number);
 
-  today.setHours(hours);
-  today.setMinutes(minutes);
-  today.setSeconds(0);
-  today.setMilliseconds(0);
+  today.set({
+    hour: hours,
+    minute: minutes,
+    second: 0,
+    millisecond: 0,
+  });
 
-  return Math.floor(today.getTime() / 1000);
+  return today.unix();
 };

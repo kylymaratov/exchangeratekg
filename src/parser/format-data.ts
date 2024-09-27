@@ -2,6 +2,7 @@ import * as cheerio from 'cheerio';
 import { BANKS_NAMES } from '@/constants/constants';
 import { convertToUnix } from '@/utils/time-convert';
 import { getDate } from '@/utils/get-date';
+import { transliterate } from '@/utils/transliterate';
 
 type Valuta = 'usd' | 'eur' | 'rub' | 'kzt' | 'cny' | 'gbp';
 
@@ -10,6 +11,7 @@ interface BankCourse {
   sell: string;
   valuta: Valuta;
   direction?: 'up' | 'down';
+  procent?: string;
 }
 
 export interface BankData {
@@ -19,9 +21,9 @@ export interface BankData {
   time: number | null;
 }
 
-export const formatValutaKgWebsite = async (
+export const formatValutaKgWebsite = (
   body: any,
-): Promise<{ data: BankData[]; parsedTime: Date }> => {
+): { data: BankData[]; parsedTime: number } => {
   const $ = cheerio.load(body);
   const result: BankData[] = [];
 
@@ -64,6 +66,43 @@ export const formatValutaKgWebsite = async (
   }
   return {
     data: result,
-    parsedTime: getDate(),
+    parsedTime: getDate().unix(),
   };
+};
+
+export const formatAkchabarKgWebsite = (
+  body: any,
+): { data: BankData[]; parsedTime: number } => {
+  const $ = cheerio.load(body);
+  const result: BankData[] = [];
+
+  $('.TableSort_table__GshZK > tbody > tr').each((idx, row) => {
+    let courses: string[] = [];
+    const name = $(row).find('td:nth-child(1)').text();
+    const bankId = transliterate(name);
+
+    $(row)
+      .find('td')
+      .each((i, cell) => {
+        if (i === 0) return;
+
+        const course = $(cell).text();
+
+        if (parseFloat(course)) courses.push(course);
+      });
+
+    result.push({
+      name,
+      bankId,
+      courses: [
+        { buy: courses[0], sell: courses[1], valuta: 'usd' },
+        { buy: courses[2], sell: courses[3], valuta: 'eur' },
+        { buy: courses[4], sell: courses[5], valuta: 'rub' },
+        { buy: courses[6], sell: courses[7], valuta: 'kzt' },
+      ],
+      time: null,
+    });
+  });
+
+  return { data: result, parsedTime: getDate().unix() };
 };

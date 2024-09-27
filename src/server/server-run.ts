@@ -1,6 +1,9 @@
 import { Express, Request, Response } from 'express';
+import http from 'http';
 import { serverEnv, webBuildPath } from './server-env';
 import { connectionDatabase } from '@/database/connection';
+import { WebSockets } from '@/websocket/web-socket';
+import { SubscriptionSocket } from '@/websocket/subscription';
 
 const beforeStart = async () => {
   await connectionDatabase(serverEnv.DB_URL || '', {});
@@ -17,7 +20,15 @@ const sendIndexFile = (req: Request, res: Response) => {
 export const startServer = async (app: Express) => {
   await beforeStart();
 
-  app.get('/', sendIndexFile);
+  const server = http.createServer(app);
 
-  app.listen(serverEnv.PORT, afterStart);
+  const io = WebSockets.getInstance(server);
+
+  app.get('*', sendIndexFile);
+
+  io.initializeHandlers([
+    { path: '/subscription', handler: new SubscriptionSocket() },
+  ]);
+
+  server.listen(serverEnv.PORT, afterStart);
 };

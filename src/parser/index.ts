@@ -1,14 +1,23 @@
 import { fetchHTMLPage } from './fetch-page';
-import { formatValutaKgWebsite } from './format-data';
+import { formatAkchabarKgWebsite, formatValutaKgWebsite } from './format-data';
 
 const valutaKgUrl = 'https://valuta.kg/';
+const akchabarKgUrl = 'https://www.akchabar.kg/ru/currency-rate';
 
 const parseValutaKgWebsite = async () => {
   const body = await fetchHTMLPage(valutaKgUrl);
 
-  const result = await formatValutaKgWebsite(body);
+  const result = formatValutaKgWebsite(body);
 
   return result;
 };
 
-export { parseValutaKgWebsite };
+const parseAchabarKgWebsite = async () => {
+  const body = await fetchHTMLPage(akchabarKgUrl);
+
+  const result = formatAkchabarKgWebsite(body);
+
+  return result;
+};
+
+export { parseValutaKgWebsite, parseAchabarKgWebsite };
